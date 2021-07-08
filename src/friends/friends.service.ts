@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import AddFriendDto from './DTO/add-friends.dto';
+import UpdateFriendDto from './DTO/update-friends.dto';
 import FriendModel from './types/friend.model';
 
 @Injectable()
@@ -26,7 +27,7 @@ export class FriendsService {
     return friendsInfo;
   }
 
-  updateFriendData(friendId: number, updateData) {
+  updateFriendData(friendId: number, updateData: UpdateFriendDto) {
     const currentFriendData = this.loadSelectedFriend(friendId);
     this.deleteFriend(friendId);
     this.friendsInformation.push({ ...currentFriendData, ...updateData });

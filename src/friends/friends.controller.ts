@@ -8,6 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 import AddFriendDto from './DTO/add-friends.dto';
+import UpdateFriendDto from './DTO/update-friends.dto';
 
 import { FriendsService } from './friends.service';
 import FriendModel from './types/friend.model';
@@ -32,7 +33,10 @@ export class FriendsController {
   }
 
   @Patch('/:id')
-  patchFriendData(@Param('id') friendId: number, @Body() updataData) {
+  patchFriendData(
+    @Param('id') friendId: number,
+    @Body() updataData: UpdateFriendDto,
+  ) {
     return this.friendsService.updateFriendData(friendId, updataData);
   }
 
