@@ -1,11 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import FriendModel from './types/friend.model';
 
 @Injectable()
 export class FriendsService {
   private friendsInformation: FriendModel[] = [];
 
-  addFriend(friendData) {
+  addFriend(friendData: FriendModel) {
     return this.friendsInformation.push({
       id: this.friendsInformation.length + 1,
       ...friendData,
@@ -17,10 +17,24 @@ export class FriendsService {
   }
 
   loadSelectedFriend(id: number): FriendModel {
-    return this.friendsInformation.find((friend) => friend.id === +id);
+    const friendsInfo = this.friendsInformation.find(
+      (friend) => friend.id === +id,
+    );
+    if (!friendsInfo) throw new NotFoundException(`Not founded ID : ${id}`);
+
+    return friendsInfo;
+  }
+
+  updateFriendData(friendId: number, updateData) {
+    const currentFriendData = this.loadSelectedFriend(friendId);
+    this.deleteFriend(friendId);
+    this.friendsInformation.push({ ...currentFriendData, ...updateData });
   }
 
   deleteFriend(id: number) {
-    return this.friendsInformation.filter((friend) => friend.id !== +id);
+    this.loadSelectedFriend(id);
+    this.friendsInformation = this.friendsInformation.filter(
+      (friend) => friend.id !== +id,
+    );
   }
 }

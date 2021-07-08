@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 
 import { FriendsService } from './friends.service';
 import FriendModel from './types/friend.model';
@@ -8,7 +16,7 @@ export class FriendsController {
   constructor(private readonly friendsService: FriendsService) {}
 
   @Post()
-  createFriend(@Body() friendData) {
+  createFriend(@Body() friendData: FriendModel) {
     return this.friendsService.addFriend(friendData);
   }
 
@@ -20,6 +28,11 @@ export class FriendsController {
   @Get('/:id')
   loadOneFriend(@Param('id') friendId: number): FriendModel {
     return this.friendsService.loadSelectedFriend(friendId);
+  }
+
+  @Patch('/:id')
+  patchFriendData(@Param('id') friendId: number, @Body() updataData) {
+    return this.friendsService.updateFriendData(friendId, updataData);
   }
 
   @Delete('/:id')
