@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import AddFriendDto from './DTO/add-friends.dto';
 
 import { FriendsService } from './friends.service';
 import FriendModel from './types/friend.model';
@@ -16,7 +17,7 @@ export class FriendsController {
   constructor(private readonly friendsService: FriendsService) {}
 
   @Post()
-  createFriend(@Body() friendData: FriendModel) {
+  createFriend(@Body() friendData: AddFriendDto) {
     return this.friendsService.addFriend(friendData);
   }
 

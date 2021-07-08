@@ -1,11 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import AddFriendDto from './DTO/add-friends.dto';
 import FriendModel from './types/friend.model';
 
 @Injectable()
 export class FriendsService {
   private friendsInformation: FriendModel[] = [];
 
-  addFriend(friendData: FriendModel) {
+  addFriend(friendData: AddFriendDto) {
     return this.friendsInformation.push({
       id: this.friendsInformation.length + 1,
       ...friendData,
