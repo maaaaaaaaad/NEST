@@ -7,7 +7,7 @@ import FriendModel from './types/friend.model';
 export class FriendsService {
   private friendsInformation: FriendModel[] = [];
 
-  addFriend(friendData: AddFriendDto) {
+  addFriend(friendData: AddFriendDto): number {
     return this.friendsInformation.push({
       id: this.friendsInformation.length + 1,
       ...friendData,

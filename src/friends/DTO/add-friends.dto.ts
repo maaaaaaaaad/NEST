@@ -9,7 +9,7 @@ class AddFriendDto {
   readonly age: string;
 
   @IsString()
-  readonly job?: string;
+  readonly job: string;
 
   @IsEmail()
   readonly email: string;
