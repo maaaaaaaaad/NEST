@@ -8,3 +8,4 @@
 
 1. Wanna be familiar using Nest.js.
 2. Make a some REST API.
+3. Wanna be familiar using test code(Test code is super billiant).

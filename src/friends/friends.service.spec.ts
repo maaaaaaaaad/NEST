@@ -17,45 +17,34 @@ describe('friedsService', () => {
     expect(service).toBeDefined();
   });
 
-  describe('Add my Friend', () => {
-    it('Should be friends counter', () => {
-      const addFriend = service.addFriend({
-        name: 'Woong',
-        age: '31',
-        job: 'Coder',
-        email: 'blabla@gmail.com',
-        phoneNumber: '01012341234',
-      });
-
-      expect(addFriend).toBeDefined();
-    });
-  });
-
-  describe('loadAll', () => {
-    it('Should be loaded to all friends', () => {
-      const loaded = service.loadAll();
-      expect(loaded).toBeDefined();
-      expect(loaded).toBeInstanceOf(Array);
-    });
-  });
-
-  describe('loadSelectedFriend', () => {
-    it('Should be user match id by 1', () => {
+  describe('update', () => {
+    it('Should be checking update', () => {
       service.addFriend({
-        name: 'Woong',
         age: '31',
+        email: 'integral5137@gmail.com',
         job: 'Coder',
-        email: 'blabla@gmail.com',
+        name: 'Woong',
         phoneNumber: '01012341234',
       });
 
-      const selectedFriend = service.loadSelectedFriend(1);
-      expect(selectedFriend.id).toEqual(1);
+      const currentUser = service.loadSelectedFriend(1);
+
+      expect(currentUser.job).toEqual('Coder');
+
+      service.updateFriendData(1, {
+        job: 'Programmer',
+      });
+
+      const updateUser = service.loadSelectedFriend(1);
+
+      expect(updateUser.job).toEqual('Programmer');
     });
 
-    it('Should be throw 404', () => {
+    it('Update error', () => {
       try {
-        service.loadSelectedFriend(222);
+        service.updateFriendData(2, {
+          job: 'haha',
+        });
       } catch (error) {
         expect(error).toBeInstanceOf(NotFoundException);
       }

@@ -27,13 +27,13 @@ export class FriendsService {
     return friendsInfo;
   }
 
-  updateFriendData(friendId: number, updateData: UpdateFriendDto) {
+  updateFriendData(friendId: number, updateData: UpdateFriendDto): void {
     const currentFriendData = this.loadSelectedFriend(friendId);
     this.deleteFriend(friendId);
     this.friendsInformation.push({ ...currentFriendData, ...updateData });
   }
 
-  deleteFriend(id: number) {
+  deleteFriend(id: number): void {
     this.loadSelectedFriend(id);
     this.friendsInformation = this.friendsInformation.filter(
       (friend) => friend.id !== +id,
